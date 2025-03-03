@@ -5,10 +5,39 @@
     <title>Music Player</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a342379b59.js" crossorigin="anonymous"></script>
+    <script src="player.js" defer="defer"></script>
+    
 </head>
 <body>
     <div class="container">
+        <div class="music-player">
+        <nav>
+            <div class="circle-button">
+                <i class="fa-solid fa-angle-left fa-lg"></i>
+            </div>
+            <div class="circle-button">
+                <i class="fa-solid fa-bars fa-lg"></i>
+            </div>
+        </nav>
+        <img src="resources/sunset.jpg" class="thumbnail">
+        <h1>Song Name</h1>
+        <p>Artist Name</p>
         
+        <audio id="song">
+            <source src="resources/chase-music.mp3" type="audio/mpeg">
+        </audio>
+        <input type="range" value="0" id="progress">
+        <div class="timers">
+            <div id="currentTime"></div>
+            <div id="maxTime"></div>
+        </div>
+        <div class="controls">
+            <div onclick="pressBack()"><i class="fa-solid fa-backward-step fa-lg"></i></div>
+            <div onclick="pressPlay()"><i class="fa-solid fa-play fa-lg" id="playButton"></i></div>
+            <div><i class="fa-solid fa-forward-step fa-lg"></i></div>
+        </div>
+        </div>
     </div>
 </body>
 
