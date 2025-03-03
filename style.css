@@ -104,3 +104,27 @@ nav .circle-button:hover{
     background: #2d432b;
     color: white;
 }
+
+#progress{
+    -webkit-appearance: none;
+    background: #2d432b;
+    width: 70%;
+    height: 12px;
+    cursor: pointer;
+    align-self: center;
+    border-radius: 10px;
+}
+
+#progress::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    background: #2d432b;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: solid 5px white;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+}
+
+#progress::-webkit-slider-thumb:hover{
+    scale: 110%;
+}
