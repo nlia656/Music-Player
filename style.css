@@ -28,6 +28,10 @@ nav{
     margin: 25px;
 }
 
+nav:hover{
+    cursor: pointer;
+}
+
 nav .circle-button{
     border-radius: 50%;
     width: 50px;
@@ -38,6 +42,11 @@ nav .circle-button{
     justify-content: center;
     align-items: center;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+}
+
+nav .circle-button:hover{
+    scale: 110%;
+    box-shadow: 4px 10px 20px 4px rgba(0, 0, 0, 0.3);
 }
 
 .thumbnail{
