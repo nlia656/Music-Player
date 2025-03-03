@@ -54,7 +54,7 @@ nav .circle-button:hover{
 }
 
 .thumbnail{
-    width: 60%;
+    width: 55%;
     border-radius: 20px;
     border: 3px solid white;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
@@ -65,12 +65,13 @@ nav .circle-button:hover{
 .music-player h1{
     font-size: 36px;
     font-weight: 500;
-    margin-top: 30px;
+    margin-top: 32px;
 }
 
 .music-player p{
     font-size: 20px;
     font-weight: 100;
+    margin-bottom: 32px;
 }
 
 .controls{
@@ -108,11 +109,12 @@ nav .circle-button:hover{
 #progress{
     -webkit-appearance: none;
     background: #2d432b;
-    width: 70%;
     height: 12px;
     cursor: pointer;
-    align-self: center;
     border-radius: 10px;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 32px;
 }
 
 #progress::-webkit-slider-thumb{

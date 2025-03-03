@@ -5,6 +5,7 @@ let playButton = document.getElementById("playButton");
 song.onloadedmetadata = function(){
     progress.max = song.duration;
     progress.value = song.currentTime;
+    song.pause();
 }
 
 function pressPlay(){
@@ -19,3 +20,13 @@ function pressPlay(){
         playButton.classList.remove("fa-play");
     }
 }
+
+if(song.play()){
+    setInterval(()=>{
+        progress.value = song.currentTime;
+    },500);
+}
+
+progress.addEventListener('input', function() {
+    song.currentTime = progress.value;
+});
