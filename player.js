@@ -27,6 +27,10 @@ function pressPlay(){
     }
 }
 
+function pressBack(){
+    song.currentTime = 0;
+}
+
 if(song.play()){
     setInterval(()=>{
         progress.value = song.currentTime;
