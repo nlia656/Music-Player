@@ -16,6 +16,12 @@ function Home() {
             <div>Play button</div>
           </div>
         </div>
+        <div className="list-headers">
+          <div>TITLE</div>
+          <div>ARTIST</div>
+          <div>DATE ADDED</div>
+          <div>DURATION</div>
+        </div>
         <div className="lists">
           <div>list entry 1</div>
           <div>list entry 2</div>

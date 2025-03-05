@@ -19,11 +19,28 @@
     align-items: baseline;
 }
 
+.list-headers{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: #bbbbbb;
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+.list-headers div:nth-child(2){
+    margin-left: 42%;
+    margin-right: 25%;
+}
+
+.list-headers div:nth-child(3){
+    margin-right: 15%;
+}
+
 .lists{
     display: flex;
     flex-direction: column;
     align-items: baseline;
     margin-left: 10rem;
-    margin-top: 5rem;
     color: white;
 }
