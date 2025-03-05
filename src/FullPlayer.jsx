@@ -4,6 +4,7 @@ import { faPlay, faPause, faAngleLeft, faBars, faBackwardStep, faForwardStep } f
 import sunsetImage from './resources/sunset.jpg';
 import chaseSong from './resources/chase-music.mp3';
 import './App.css';
+import { useLocation, useNavigate } from "react-router-dom";
 
 function FullPlayer() {
   const songRef = useRef(null);
@@ -12,6 +13,11 @@ function FullPlayer() {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentProgress, setCurrentProgress] = useState(0);
+
+  const location = useLocation();
+  const { title, artist } = location.state || {};
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const song = songRef.current;
@@ -67,7 +73,7 @@ function FullPlayer() {
     <div className="container">
       <div className="music-player">
         <nav>
-          <div className="circle-button">
+          <div className="circle-button" onClick={()=>navigate("/")}>
             <FontAwesomeIcon icon={faAngleLeft} size="lg" />
           </div>
           <div className="circle-button">
@@ -75,8 +81,8 @@ function FullPlayer() {
           </div>
         </nav>
         <img src={sunsetImage} className="thumbnail" alt="Album cover" />
-        <h1>Song Name</h1>
-        <p>Artist Name</p>
+        <h1>{title}</h1>
+        <p>{artist}</p>
 
         <audio ref={songRef}>
           <source src={chaseSong} type="audio/mpeg" />

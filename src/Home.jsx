@@ -2,9 +2,12 @@ import { useState } from 'react'
 import './Home.css'
 import sunsetImage from './resources/sunset.jpg';
 import ListEntry from './ListEntry';
+import { useNavigate } from "react-router-dom";
 
 
 function Home() {
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -24,7 +27,10 @@ function Home() {
             <div>DATE ADDED</div>
             <div>DURATION</div>
           </div>
-          <ListEntry/>
+          <ListEntry 
+          title="Sunset" 
+          artist="Unknown artist"
+          onClick={() => navigate("/player", { state: { title: "Sunset", artist: "Unknown artist" } })}/>
         </div>
       </div>
     </>

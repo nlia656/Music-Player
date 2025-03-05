@@ -60,8 +60,12 @@
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
-    width: 90%;
+    width: 88%;
     height: 4rem;
+    margin-left: 7%;
+    border-radius: 5px;
+    color: white;
+    font-weight: 300;
 }
 
 .list-entry div:nth-child(1){
@@ -84,3 +88,7 @@
     left: 87%;
 }
 
+.list-entry:hover{
+    cursor: pointer;
+    background-color: #505c67;
+}
