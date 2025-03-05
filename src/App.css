@@ -1,0 +1,134 @@
+#root {
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #404c57;
+}
+
+.music-player{
+  background-color: #aab99c;
+  width: 35%;
+  height: 80%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  margin: 25px;
+}
+
+nav:hover{
+  cursor: pointer;
+}
+
+nav .circle-button{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  line-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+  color: #2d432b;
+}
+
+nav .circle-button:hover{
+  scale: 110%;
+  cursor: pointer;
+  box-shadow: 4px 10px 20px 4px rgba(0, 0, 0, 0.3);
+}
+
+.thumbnail{
+  width: 55%;
+  border-radius: 20px;
+  border: 3px solid white;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+  align-self: center;
+  justify-self: center;
+}
+
+.music-player h1{
+  font-size: 36px;
+  font-weight: 500;
+  margin-top: 32px;
+  margin-bottom: -15px;
+}
+
+.music-player p{
+  font-size: 20px;
+  font-weight: 100;
+  margin-bottom: 32px;
+}
+
+.controls{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 32px;
+}
+
+.controls div{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+  color: #2d432b;
+  margin: 20px;
+}
+
+.controls div:hover{
+  cursor: pointer;
+  scale: 110%;
+  box-shadow: 4px 10px 20px 4px rgba(0, 0, 0, 0.3);
+}
+
+.controls div:nth-child(2){
+  transform: scale(1.4);
+  background: #2d432b;
+  color: white;
+}
+
+#progress{
+  -webkit-appearance: none;
+  background: #2d432b;
+  height: 12px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-bottom: 14px;
+}
+
+#progress::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  background: #2d432b;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: solid 5px white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+#progress::-webkit-slider-thumb:hover{
+  scale: 110%;
+}
+
+.timers{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 15%;
+  padding-right: 15%;
+}
