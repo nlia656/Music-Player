@@ -1,0 +1,29 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10rem;
+    margin: 3rem;;
+}
+
+.thumbnail{
+    width: 15rem;
+    height: 15rem;
+}
+
+.titles{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.lists{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin-left: 10rem;
+    margin-top: 5rem;
+    color: white;
+}
