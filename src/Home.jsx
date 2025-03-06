@@ -70,6 +70,8 @@ function Home() {
                     duration: song.duration,
                     songFileUrl: song.songFileUrl,
                     thumbnailUrl: song.thumbnailUrl,
+                    songs: songs,//list of songs
+                    index: index,
                   },
                 })}
                 onDelete={() => deleteSong(index)}

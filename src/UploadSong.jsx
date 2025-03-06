@@ -9,7 +9,29 @@ function UploadSong({onAddSong, open, onClose}) {
     const [songFile, setSongFile] = useState(null);
     const [songName, setSongName] = useState('');
     const [artistName, setArtistName] = useState('');
+    const [duration, setDuration] = useState(null);
     
+
+    const handleSongFileChange = (e) => {
+        const file = e.target.files[0];
+        setSongFile(file);
+
+        if (file) {
+            const audio = new Audio(URL.createObjectURL(file));
+
+            audio.onloadedmetadata = () => {
+                // Get the duration of the song in seconds
+                const songDuration = audio.duration;
+
+                // Convert duration to proper format
+                const minutes = Math.floor(songDuration / 60);
+                const seconds = Math.round(songDuration % 60);
+                setDuration(`${minutes}:${seconds.toString().padStart(2, '0')}`);
+            };
+        }
+    };
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
     
@@ -22,11 +44,14 @@ function UploadSong({onAddSong, open, onClose}) {
         const thumbnailUrl = URL.createObjectURL(thumbnail);
         const songFileUrl = URL.createObjectURL(songFile);
     
+        const date = new Date();
+        const entryDate = new Intl.DateTimeFormat('en-GB').format(date);
+
         const newSong = {
           title: songName,
           artist: artistName,
-          date: new Date().toLocaleDateString(),
-          duration: '3:30',
+          date: entryDate,
+          duration,
           thumbnailUrl,
           songFileUrl,
         };
@@ -62,7 +87,7 @@ function UploadSong({onAddSong, open, onClose}) {
                     </div>
                     <div>
                         <label for="songFile">Upload song (mp3):</label>
-                        <input type="file" name="songFile" id="songFile" accept=".mp3,audio/*" required onChange={(e) => setSongFile(e.target.files[0])}/>
+                        <input type="file" name="songFile" id="songFile" accept=".mp3,audio/*" required onChange={handleSongFileChange}/>
                     </div>
                     <div>
                         <label for="songName">Song name:</label>

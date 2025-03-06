@@ -13,24 +13,27 @@ function FullPlayer() {
   const [currentProgress, setCurrentProgress] = useState(0);
 
   const location = useLocation();
-  const { title, artist, date, duration, thumbnailUrl, songFileUrl } = location.state || {};
-  console.log(location.state);
-
+  const { title, artist, date, duration, thumbnailUrl, songFileUrl, songs, index } = location.state || {};
+  const [currentSongIndex, setCurrentSongIndex] = useState(location.state.index);
+  const [currentSong, setCurrentSong] = useState(songs[currentSongIndex]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const song = songRef.current;
-    const progress = progressRef.current;
     
-    if (song && progress) {
-      const intervalId = setInterval(() => {
-        if (song.paused) return;
+    if (song) {
+      //When the time value changes in the audio file we update the bar here.
+      const handleTimeUpdate = () => {
         setCurrentProgress(song.currentTime);
-      }, 500);
+      };
 
-      return () => clearInterval(intervalId);
+      song.addEventListener('timeupdate', handleTimeUpdate);
+
+      return () => {
+        song.removeEventListener('timeupdate', handleTimeUpdate);
+      };
     }
-  }, [isPlaying]);
+  }, [currentSong]);
 
   const pressPlay = () => {
     const song = songRef.current;
@@ -62,11 +65,61 @@ function FullPlayer() {
     }
   }, [currentProgress]);
 
-  const replaySong = () => {
+  const backSong = () => {
     const song = songRef.current;
-    song.currentTime = 0;
-    setCurrentProgress(0);
+    if (song.currentTime > 2){
+      song.currentTime = 0;
+      setCurrentProgress(0);
+    } else {
+      let nextIndex = (currentSongIndex - 1) % songs.length; 
+      if(nextIndex < 0){
+        nextIndex = songs.length - 1;
+      }
+      setCurrentSongIndex(nextIndex);
+      setCurrentSong(songs[nextIndex]);
+      const song = songRef.current;
+      if(song){
+        song.pause();
+        song.load();
+        song.currentTime = 0;
+        setCurrentProgress(0);
+        song.play();
+        setIsPlaying(true);
+      }
+    }
+    
   }
+
+  const nextSong = () => {
+    const nextIndex = (currentSongIndex + 1) % songs.length; //% is so that if it's the last song it goes back to the start
+    setCurrentSongIndex(nextIndex);
+    setCurrentSong(songs[nextIndex]);
+    const song = songRef.current;
+    if(song){
+      song.pause();
+      song.load();
+      song.currentTime = 0;
+      setCurrentProgress(0);
+      song.play();
+      setIsPlaying(true);
+    }
+  }
+
+  useEffect(() => {
+    setCurrentSong(songs[currentSongIndex]);
+  }, [currentSongIndex, songs]);
+
+  const songEnded = () =>{
+    nextSong();
+  }
+
+  useEffect(() => {
+    const song = songRef.current;
+    if (song) {
+      song.play();  // Play the song immediately
+      setIsPlaying(true);  // Set the playing state
+    }
+  }, [currentSong]);
 
   return (
     <div className="container">
@@ -79,12 +132,12 @@ function FullPlayer() {
             <FontAwesomeIcon icon={faBars} size="lg" />
           </div>
         </nav>
-        <img src={thumbnailUrl} className="thumbnail" alt="Album cover" />
-        <h1>{title}</h1>
-        <p>{artist}</p>
+        <img src={currentSong.thumbnailUrl} className="thumbnail" alt="Album cover" />
+        <h1>{currentSong.title}</h1>
+        <p>{currentSong.artist}</p>
 
-        <audio ref={songRef}>
-          <source src={songFileUrl} type="audio/mpeg" />
+        <audio ref={songRef} onEnded={songEnded} key={currentSongIndex}>
+          <source src={currentSong.songFileUrl} type="audio/mpeg" />
         </audio>
 
         <input
@@ -99,11 +152,11 @@ function FullPlayer() {
 
         <div className="timers">
           <div id="currentTime">{`${Math.floor(currentProgress / 60)}:${Math.round(currentProgress % 60).toString().padStart(2, '0')}`}</div>
-          <div id="maxTime">{songRef.current ? `${Math.floor(songRef.current.duration / 60)}:${Math.round(songRef.current.duration % 60).toString().padStart(2, '0')}` : "00:00"}</div>
+          <div id="maxTime">{currentSong.duration}</div>
         </div>
 
         <div className="controls">
-          <div onClick={replaySong}>
+          <div onClick={backSong}>
             <FontAwesomeIcon icon={faBackwardStep} size="lg" />
           </div>
           <div onClick={pressPlay}>
@@ -113,7 +166,7 @@ function FullPlayer() {
               size="lg"
             />
           </div>
-          <div>
+          <div onClick={nextSong}>
             <FontAwesomeIcon icon={faForwardStep} size="lg" />
           </div>
         </div>
