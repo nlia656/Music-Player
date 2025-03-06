@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faAngleLeft, faBars, faBackwardStep, faForwardStep } from '@fortawesome/free-solid-svg-icons';
-import sunsetImage from './resources/sunset.jpg';
-import chaseSong from './resources/chase-music.mp3';
 import './App.css';
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -15,7 +13,8 @@ function FullPlayer() {
   const [currentProgress, setCurrentProgress] = useState(0);
 
   const location = useLocation();
-  const { title, artist } = location.state || {};
+  const { title, artist, date, duration, thumbnailUrl, songFileUrl } = location.state || {};
+  console.log(location.state);
 
   const navigate = useNavigate();
 
@@ -80,12 +79,12 @@ function FullPlayer() {
             <FontAwesomeIcon icon={faBars} size="lg" />
           </div>
         </nav>
-        <img src={sunsetImage} className="thumbnail" alt="Album cover" />
+        <img src={thumbnailUrl} className="thumbnail" alt="Album cover" />
         <h1>{title}</h1>
         <p>{artist}</p>
 
         <audio ref={songRef}>
-          <source src={chaseSong} type="audio/mpeg" />
+          <source src={songFileUrl} type="audio/mpeg" />
         </audio>
 
         <input
@@ -110,7 +109,7 @@ function FullPlayer() {
           <div onClick={pressPlay}>
             <FontAwesomeIcon
               ref={playButtonRef}
-              icon={isPlaying ? faPause : faPlay}
+              icon={isPlaying ? faPause : faPlay} 
               size="lg"
             />
           </div>

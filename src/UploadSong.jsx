@@ -13,17 +13,30 @@ function UploadSong({onAddSong, open, onClose}) {
     const handleSubmit = (event) => {
         event.preventDefault();
     
-        if (!songFile) {
+        if (!songFile || !thumbnail) {
           alert('Please upload a song!');
           return;
         }
+
+        //create the url for files
+        const thumbnailUrl = URL.createObjectURL(thumbnail);
+        const songFileUrl = URL.createObjectURL(songFile);
     
         const newSong = {
           title: songName,
           artist: artistName,
           date: new Date().toLocaleDateString(),
           duration: '3:30',
+          thumbnailUrl,
+          songFileUrl,
         };
+
+        //Get existing songs from local storage then add to it
+        const existingSongs = JSON.parse(localStorage.getItem('songs')) || [];
+        existingSongs.push(newSong);
+
+        // Save updated list back to localStorage
+        localStorage.setItem('songs', JSON.stringify(existingSongs));
     
         onAddSong(newSong);
         onClose();
@@ -45,7 +58,7 @@ function UploadSong({onAddSong, open, onClose}) {
                 <form className="inputs" onSubmit={handleSubmit}>
                     <div>
                         <label for="inputThumbnail">Upload image:</label>
-                        <input type="file" name="inputThumbnail" id="inputThumbnail" accept="image/*" onChange={(e) => setThumbnail(e.target.files[0])}/>
+                        <input type="file" name="inputThumbnail" id="inputThumbnail" accept="image/*" required onChange={(e) => setThumbnail(e.target.files[0])}/>
                     </div>
                     <div>
                         <label for="songFile">Upload song (mp3):</label>

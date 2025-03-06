@@ -1,22 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Home.css'
 import sunsetImage from './resources/sunset.jpg';
 import ListEntry from './ListEntry';
 import { useNavigate } from "react-router-dom";
 import UploadSong from './UploadSong';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+
 
 
 function Home() {
 
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [songs, setSongs] = useState([
-    { title: "Sunset", artist: "Unknown artist", date: "05/03/2025", duration: "1:01" }
-  ]);
+  const [songs, setSongs] = useState([]);
+  useEffect(() => {
+    const storedSongs = JSON.parse(localStorage.getItem('songs')) || [];
+    setSongs(storedSongs);
+  }, []);
 
   const addSong = (newSong) => {
-    setSongs([...songs, newSong]);
+    setSongs((prevSongs) => {
+      const updatedSongs = [...prevSongs, newSong];
+      // Save updated list to localStorage
+      localStorage.setItem('songs', JSON.stringify(updatedSongs));
+      return updatedSongs;
+    });
   };
 
 
@@ -48,7 +55,16 @@ function Home() {
                 artist={song.artist}
                 date={song.date}
                 duration={song.duration}
-                onClick={() => navigate("/player", { state: { title: song.title, artist: song.artist , date: song.date, duration: song.duration} })}
+                onClick={() => navigate("/player", { 
+                  state: { 
+                    title: song.title, 
+                    artist: song.artist , 
+                    date: song.date, 
+                    duration: song.duration,
+                    songFileUrl: song.songFileUrl,
+                    thumbnailUrl: song.thumbnailUrl,
+                  },
+                   })}
               />
             ))}
         </div>
