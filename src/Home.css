@@ -30,22 +30,22 @@
 
 .list-headers div:nth-child(1){
     position: absolute;
-    left: 10%;
+    left: 9%;
 }
 
 .list-headers div:nth-child(2){
     position: absolute;
-    left: 45%;
+    left: 40%;
 }
 
 .list-headers div:nth-child(3){
     position: absolute;
-    left: 70%;
+    left: 68%;
 }
 
 .list-headers div:nth-child(4){
     position: absolute;
-    left: 87%;
+    left: 85%;
 }
 
 
@@ -60,9 +60,9 @@
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
-    width: 88%;
+    width: 90%;
     height: 4rem;
-    margin-left: 7%;
+    margin-left: 6%;
     border-radius: 5px;
     color: white;
     font-weight: 300;
@@ -70,25 +70,44 @@
 
 .list-entry div:nth-child(1){
     position: absolute;
-    left: 10%;
+    left: 9%;
 }
 
 .list-entry div:nth-child(2){
     position: absolute;
-    left: 45%;
+    left: 40%;
 }
 
 .list-entry div:nth-child(3){
     position: absolute;
-    left: 70%;
+    left: 68%;
 }
 
 .list-entry div:nth-child(4){
     position: absolute;
-    left: 87%;
+    left: 85%;
+}
+
+.list-entry div:nth-child(5){
+    position: absolute;
+    right: 7%;
 }
 
 .list-entry:hover{
     cursor: pointer;
     background-color: #505c67;
+}
+
+.delete{
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    line-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete:hover{
+    background-color: rgba(255,255,255,0.3);
 }

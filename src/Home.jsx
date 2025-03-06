@@ -26,6 +26,13 @@ function Home() {
     });
   };
 
+  const deleteSong = (indexToDelete) => {
+    setSongs((prevSongs) => {
+      const updatedSongs = prevSongs.filter((_, index) => index !== indexToDelete);
+      localStorage.setItem('songs', JSON.stringify(updatedSongs));
+      return updatedSongs;
+    });
+  };
 
   return (
     <>
@@ -49,7 +56,7 @@ function Home() {
             <div>DURATION</div>
           </div>
             {songs.map((song, index) => (
-              <ListEntry
+                <ListEntry
                 key={index}
                 title={song.title}
                 artist={song.artist}
@@ -64,9 +71,12 @@ function Home() {
                     songFileUrl: song.songFileUrl,
                     thumbnailUrl: song.thumbnailUrl,
                   },
-                   })}
+                })}
+                onDelete={() => deleteSong(index)}
               />
+              
             ))}
+            
         </div>
       </div>
     </>

@@ -65,12 +65,12 @@ function UploadSong({onAddSong, open, onClose}) {
                         <input type="file" name="songFile" id="songFile" accept=".mp3,audio/*" required onChange={(e) => setSongFile(e.target.files[0])}/>
                     </div>
                     <div>
-                        <label for="songName" autoComplete="off">Song name:</label>
-                        <input type="text" name="songName" id="songName" onChange={(e) => setSongName(e.target.value)}/>
+                        <label for="songName">Song name:</label>
+                        <input type="text" name="songName" id="songName" autoComplete="off" onChange={(e) => setSongName(e.target.value)}/>
                     </div>
                     <div>
-                        <label for="artistName" autoComplete="off">Artist name:</label>
-                        <input type="text" name="artistName" id="artistName" onChange={(e) => setArtistName(e.target.value)}/>
+                        <label for="artistName">Artist name:</label>
+                        <input type="text" name="artistName" id="artistName" autoComplete="off" onChange={(e) => setArtistName(e.target.value)}/>
                     </div>
                     <button>Submit</button>
                 </form>
