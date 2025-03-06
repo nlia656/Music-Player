@@ -14,18 +14,15 @@ function FullPlayer() {
 
   const location = useLocation();
   const { title, artist, date, duration, thumbnailUrl, songFileUrl, songs, index } = location.state || {};
-  console.log(location)
-  console.log(location.state.index)
   const [currentSongIndex, setCurrentSongIndex] = useState(location.state.index);
   const [currentSong, setCurrentSong] = useState(songs[currentSongIndex]);
-  console.log(songs)
-  console.log(currentSongIndex)
   const navigate = useNavigate();
 
   useEffect(() => {
     const song = songRef.current;
     
     if (song) {
+      //When the time value changes in the audio file we update the bar here.
       const handleTimeUpdate = () => {
         setCurrentProgress(song.currentTime);
       };
@@ -68,10 +65,29 @@ function FullPlayer() {
     }
   }, [currentProgress]);
 
-  const replaySong = () => {
+  const backSong = () => {
     const song = songRef.current;
-    song.currentTime = 0;
-    setCurrentProgress(0);
+    if (song.currentTime > 2){
+      song.currentTime = 0;
+      setCurrentProgress(0);
+    } else {
+      let nextIndex = (currentSongIndex - 1) % songs.length; 
+      if(nextIndex < 0){
+        nextIndex = songs.length - 1;
+      }
+      setCurrentSongIndex(nextIndex);
+      setCurrentSong(songs[nextIndex]);
+      const song = songRef.current;
+      if(song){
+        song.pause();
+        song.load();
+        song.currentTime = 0;
+        setCurrentProgress(0);
+        song.play();
+        setIsPlaying(true);
+      }
+    }
+    
   }
 
   const nextSong = () => {
@@ -140,7 +156,7 @@ function FullPlayer() {
         </div>
 
         <div className="controls">
-          <div onClick={replaySong}>
+          <div onClick={backSong}>
             <FontAwesomeIcon icon={faBackwardStep} size="lg" />
           </div>
           <div onClick={pressPlay}>
