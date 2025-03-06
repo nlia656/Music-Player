@@ -1,0 +1,94 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10rem;
+    margin: 3rem;;
+}
+
+.thumbnail{
+    width: 15rem;
+    height: 15rem;
+}
+
+.titles{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.list-headers{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: #bbbbbb;
+    width: 90%;
+    margin-bottom: 2rem;
+}
+
+.list-headers div:nth-child(1){
+    position: absolute;
+    left: 10%;
+}
+
+.list-headers div:nth-child(2){
+    position: absolute;
+    left: 45%;
+}
+
+.list-headers div:nth-child(3){
+    position: absolute;
+    left: 70%;
+}
+
+.list-headers div:nth-child(4){
+    position: absolute;
+    left: 87%;
+}
+
+
+.lists{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    color: white;
+}
+
+.list-entry{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 88%;
+    height: 4rem;
+    margin-left: 7%;
+    border-radius: 5px;
+    color: white;
+    font-weight: 300;
+}
+
+.list-entry div:nth-child(1){
+    position: absolute;
+    left: 10%;
+}
+
+.list-entry div:nth-child(2){
+    position: absolute;
+    left: 45%;
+}
+
+.list-entry div:nth-child(3){
+    position: absolute;
+    left: 70%;
+}
+
+.list-entry div:nth-child(4){
+    position: absolute;
+    left: 87%;
+}
+
+.list-entry:hover{
+    cursor: pointer;
+    background-color: #505c67;
+}
