@@ -24,17 +24,19 @@ function FullPlayer() {
 
   useEffect(() => {
     const song = songRef.current;
-    const progress = progressRef.current;
     
-    if (song && progress) {
-      const intervalId = setInterval(() => {
-        if (song.paused) return;
+    if (song) {
+      const handleTimeUpdate = () => {
         setCurrentProgress(song.currentTime);
-      }, 500);
+      };
 
-      return () => clearInterval(intervalId);
+      song.addEventListener('timeupdate', handleTimeUpdate);
+
+      return () => {
+        song.removeEventListener('timeupdate', handleTimeUpdate);
+      };
     }
-  }, [isPlaying]);
+  }, [currentSong]);
 
   const pressPlay = () => {
     const song = songRef.current;
@@ -80,13 +82,28 @@ function FullPlayer() {
     if(song){
       song.pause();
       song.load();
+      song.currentTime = 0;
+      setCurrentProgress(0);
       song.play();
+      setIsPlaying(true);
     }
   }
 
   useEffect(() => {
     setCurrentSong(songs[currentSongIndex]);
   }, [currentSongIndex, songs]);
+
+  const songEnded = () =>{
+    nextSong();
+  }
+
+  useEffect(() => {
+    const song = songRef.current;
+    if (song) {
+      song.play();  // Play the song immediately
+      setIsPlaying(true);  // Set the playing state
+    }
+  }, [currentSong]);
 
   return (
     <div className="container">
@@ -103,7 +120,7 @@ function FullPlayer() {
         <h1>{currentSong.title}</h1>
         <p>{currentSong.artist}</p>
 
-        <audio ref={songRef}>
+        <audio ref={songRef} onEnded={songEnded} key={currentSongIndex}>
           <source src={currentSong.songFileUrl} type="audio/mpeg" />
         </audio>
 
