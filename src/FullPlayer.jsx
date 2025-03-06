@@ -99,7 +99,7 @@ function FullPlayer() {
 
         <div className="timers">
           <div id="currentTime">{`${Math.floor(currentProgress / 60)}:${Math.round(currentProgress % 60).toString().padStart(2, '0')}`}</div>
-          <div id="maxTime">{songRef.current ? `${Math.floor(songRef.current.duration / 60)}:${Math.round(songRef.current.duration % 60).toString().padStart(2, '0')}` : "00:00"}</div>
+          <div id="maxTime">{duration}</div>
         </div>
 
         <div className="controls">
