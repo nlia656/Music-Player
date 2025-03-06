@@ -3,11 +3,15 @@ import './Home.css'
 import sunsetImage from './resources/sunset.jpg';
 import ListEntry from './ListEntry';
 import { useNavigate } from "react-router-dom";
+import UploadSong from './UploadSong';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
 function Home() {
 
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
 
   return (
     <>
@@ -19,6 +23,11 @@ function Home() {
             <h1>Playlist Name</h1>
             <div>Play button</div>
           </div>
+          <input type="file" name="inputThumbnail" accept="image/*" />
+          <button onClick={() => setIsOpen(true)}>Add song</button>
+          <UploadSong open={isOpen} onClose={() => setIsOpen(false)}>
+            Upload song interface
+          </UploadSong>
         </div>
         <div className="lists">
           <div className="list-headers">
