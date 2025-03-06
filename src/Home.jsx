@@ -11,6 +11,13 @@ function Home() {
 
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [songs, setSongs] = useState([
+    { title: "Sunset", artist: "Unknown artist", date: "05/03/2025", duration: "1:01" }
+  ]);
+
+  const addSong = (newSong) => {
+    setSongs([...songs, newSong]);
+  };
 
 
   return (
@@ -23,10 +30,8 @@ function Home() {
             <h1>Playlist Name</h1>
             <div>Play button</div>
           </div>
-          <input type="file" name="inputThumbnail" accept="image/*" />
           <button onClick={() => setIsOpen(true)}>Add song</button>
-          <UploadSong open={isOpen} onClose={() => setIsOpen(false)}>
-            Upload song interface
+          <UploadSong open={isOpen} onClose={() => setIsOpen(false)} onAddSong={addSong}>
           </UploadSong>
         </div>
         <div className="lists">
@@ -36,10 +41,16 @@ function Home() {
             <div>DATE ADDED</div>
             <div>DURATION</div>
           </div>
-          <ListEntry 
-          title="Sunset" 
-          artist="Unknown artist"
-          onClick={() => navigate("/player", { state: { title: "Sunset", artist: "Unknown artist" } })}/>
+            {songs.map((song, index) => (
+              <ListEntry
+                key={index}
+                title={song.title}
+                artist={song.artist}
+                date={song.date}
+                duration={song.duration}
+                onClick={() => navigate("/player", { state: { title: song.title, artist: song.artist , date: song.date, duration: song.duration} })}
+              />
+            ))}
         </div>
       </div>
     </>
