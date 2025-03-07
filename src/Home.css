@@ -59,9 +59,8 @@
 .list-entry{
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
     width: 90%;
-    height: 4rem;
+    height: 4.5rem;
     margin-left: 6%;
     border-radius: 5px;
     color: white;
@@ -110,4 +109,12 @@
 
 .delete:hover{
     background-color: rgba(255,255,255,0.3);
+}
+
+.list-entry:nth-child(even){
+    background-color: #45525c;
+}
+
+.list-entry:nth-child(even):hover{
+    background-color: #505c67;
 }
