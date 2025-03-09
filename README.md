@@ -1,3 +1,8 @@
 # Music-Player
 
-Web music player project. Aims to be able to play and playlist uploaded music as well as play tracks simulataneously to simular rounds and canons.
+Web music player project. 
+Upload mp3 files alongside a thumbnail and song name, into a playlist format.
+
+## Future goals
+
+Integrate a database to store music.
