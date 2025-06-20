@@ -30,10 +30,8 @@ function UploadSong({onAddSong, open, onClose}) {
             const audio = new Audio(URL.createObjectURL(file));
 
             audio.onloadedmetadata = () => {
-                // Get the duration of the song in seconds
+                // get the duration of the song
                 const songDuration = audio.duration;
-
-                // Convert duration to proper format
                 const minutes = Math.floor(songDuration / 60);
                 const seconds = Math.round(songDuration % 60);
                 setDuration(`${minutes}:${seconds.toString().padStart(2, '0')}`);
@@ -55,27 +53,21 @@ function UploadSong({onAddSong, open, onClose}) {
             const songFileName = `${Date.now()}_${sanitiseFileName(songFile.name)}`;
             const thumbnailFileName = `${Date.now()}_${sanitiseFileName(thumbnail.name)}`;
 
-            // // Upload files to Supabase Storage buckets
-            // let { error: songError } = await supabase.storage
-            // .from('songs')
-            // .upload(songFileName, songFile)
+            // Upload files to Supabase Storage buckets
+            const bucket = supabase.storage.from('songs')
+            let { error } = await bucket.upload(`/${songFileName}`, songFile);
+            if (error) {
+                console.error('Error uploading file:', error.message);
+            }
 
-            // if (songError) throw songError
+            const thumbnailBucket = supabase.storage.from('thumbnails')
+            let { errorThumbnail } = await thumbnailBucket.upload(`/${thumbnailFileName}`, thumbnail);
+            if (errorThumbnail) {
+                console.error('Error uploading thumbnail:', errorThumbnail.message);
+            }
 
-            // let { error: thumbError } = await supabase.storage
-            // .from('thumbnails')
-            // .upload(thumbnailFileName, thumbnail)
-
-            // if (thumbError) throw thumbError
-
-            // // Get public URLs for files
-            // const { publicURL: songFileUrl } = supabase.storage
-            // .from('songs')
-            // .getPublicUrl(songFileName)
-
-            // const { publicURL: thumbnailUrl } = supabase.storage
-            // .from('thumbnails')
-            // .getPublicUrl(thumbnailFileName)
+            const songFileUrl = `https://rvaugnusjthsxxhohiuy.supabase.co/storage/v1/object/public/songs/${songFileName}`;
+            const thumbnailUrl = `https://rvaugnusjthsxxhohiuy.supabase.co/storage/v1/object/public/thumbnails/${thumbnailFileName}`;
 
             // Insert new song metadata in your database
             const { data, error: dbError } = await supabase
@@ -83,20 +75,17 @@ function UploadSong({onAddSong, open, onClose}) {
             .insert([{
                 created_at: new Date().toISOString(),
                 artist_name: artistName,
-                // thumbnail_url: thumbnailUrl,
-                // song_url: songFileUrl,
+                thumbnail_url: thumbnailUrl,
+                song_url: songFileUrl,
                 song_name: songName,  
-                // duration,
-                thumbnail_url: "thumbnailUrl",
-                song_url: "songFileUrl",
-                duration: "duration",
-            }])
+                duration: duration,
+            }]);
 
-            if (dbError) throw dbError
+            if (dbError) throw dbError;
 
             // Notify parent with new song from database
-            //onAddSong(data[0])
-            onClose()
+            onAddSong(data[0]);
+            onClose();
 
         } catch (error) {
             alert('Error uploading song: ' + error.message)

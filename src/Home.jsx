@@ -39,6 +39,7 @@ function Home() {
   }
   useEffect(() => {
     getSongs();
+    console.log(songs);
   }, []);
 
   const deleteSong = (indexToDelete) => {
@@ -91,10 +92,10 @@ function Home() {
                   state: { 
                     title: song.song_name, 
                     artist: song.artist_name , 
-                    date: song.created_at, 
-                    duration: formatTimestamp(song.created_at),
-                    songFileUrl: song.songFileUrl,
-                    thumbnailUrl: song.thumbnailUrl,
+                    date: formatTimestamp(song.created_at), 
+                    duration: song.duration,
+                    songFileUrl: song.song_url,
+                    thumbnailUrl: song.thumbnail_url,
                     songs: songs,//list of songs
                     index: index,
                   },
