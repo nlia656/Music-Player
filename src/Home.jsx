@@ -4,6 +4,7 @@ import sunsetImage from './resources/sunset.jpg';
 import ListEntry from './ListEntry';
 import { useNavigate } from "react-router-dom";
 import UploadSong from './UploadSong';
+import { supabase } from './supabaseClient'
 
 
 
@@ -12,10 +13,7 @@ function Home() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [songs, setSongs] = useState([]);
-  useEffect(() => {
-    const storedSongs = JSON.parse(localStorage.getItem('songs')) || [];
-    setSongs(storedSongs);
-  }, []);
+  
 
   const addSong = (newSong) => {
     setSongs((prevSongs) => {
@@ -26,6 +24,23 @@ function Home() {
     });
   };
 
+  const getSongs  = async () => {
+    
+    let { data: songs, error } = await supabase
+      .from('songs')
+      .select('created_at, song_name, artist_name, duration');
+    
+    if (error) {
+      console.error('Error fetching songs:', error.message);
+      return;
+    }
+    setSongs(songs);
+    
+  }
+  useEffect(() => {
+    getSongs();
+  }, []);
+
   const deleteSong = (indexToDelete) => {
     setSongs((prevSongs) => {
       const updatedSongs = prevSongs.filter((_, index) => index !== indexToDelete);
@@ -33,6 +48,16 @@ function Home() {
       return updatedSongs;
     });
   };
+
+  const formatTimestamp = (timestamp) => {
+  const date = new Date(timestamp);
+  
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+};
 
   return (
     <>
@@ -58,16 +83,16 @@ function Home() {
             {songs.map((song, index) => (
                 <ListEntry
                 key={index}
-                title={song.title}
-                artist={song.artist}
-                date={song.date}
+                title={song.song_name}
+                artist={song.artist_name}
+                date={formatTimestamp(song.created_at)}
                 duration={song.duration}
                 onClick={() => navigate("/player", { 
                   state: { 
-                    title: song.title, 
-                    artist: song.artist , 
-                    date: song.date, 
-                    duration: song.duration,
+                    title: song.song_name, 
+                    artist: song.artist_name , 
+                    date: song.created_at, 
+                    duration: formatTimestamp(song.created_at),
                     songFileUrl: song.songFileUrl,
                     thumbnailUrl: song.thumbnailUrl,
                     songs: songs,//list of songs
