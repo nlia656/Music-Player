@@ -1,8 +1,9 @@
-import { React, useState} from 'react'
+import { React, useState, useEffect} from 'react'
 import ReactDom from 'react-dom'
 import "./modal.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { supabase } from './supabaseClient'
 
 function UploadSong({onAddSong, open, onClose}) {
     const [thumbnail, setThumbnail] = useState(null);
@@ -10,7 +11,16 @@ function UploadSong({onAddSong, open, onClose}) {
     const [songName, setSongName] = useState('');
     const [artistName, setArtistName] = useState('');
     const [duration, setDuration] = useState(null);
+
     
+
+    function sanitiseFileName(name) {
+        return name
+            .normalize('NFKD') // normalize unicode chars
+            .replace(/[^\w\-\.]+/g, '_') // replace non-alphanumeric, dash, dot with _
+            .replace(/_+/g, '_') // collapse multiple underscores
+            .replace(/^_+|_+$/g, '') // trim leading/trailing underscores
+    }
 
     const handleSongFileChange = (e) => {
         const file = e.target.files[0];
@@ -32,7 +42,7 @@ function UploadSong({onAddSong, open, onClose}) {
     };
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
     
         if (!songFile || !thumbnail) {
@@ -40,31 +50,57 @@ function UploadSong({onAddSong, open, onClose}) {
           return;
         }
 
-        //create the url for files
-        const thumbnailUrl = URL.createObjectURL(thumbnail);
-        const songFileUrl = URL.createObjectURL(songFile);
-    
-        const date = new Date();
-        const entryDate = new Intl.DateTimeFormat('en-GB').format(date);
+        try {
+            // Generate unique file names (e.g. add timestamp)
+            const songFileName = `${Date.now()}_${sanitiseFileName(songFile.name)}`;
+            const thumbnailFileName = `${Date.now()}_${sanitiseFileName(thumbnail.name)}`;
 
-        const newSong = {
-          title: songName,
-          artist: artistName,
-          date: entryDate,
-          duration,
-          thumbnailUrl,
-          songFileUrl,
-        };
+            // // Upload files to Supabase Storage buckets
+            // let { error: songError } = await supabase.storage
+            // .from('songs')
+            // .upload(songFileName, songFile)
 
-        //Get existing songs from local storage then add to it
-        const existingSongs = JSON.parse(localStorage.getItem('songs')) || [];
-        existingSongs.push(newSong);
+            // if (songError) throw songError
 
-        // Save updated list back to localStorage
-        localStorage.setItem('songs', JSON.stringify(existingSongs));
-    
-        onAddSong(newSong);
-        onClose();
+            // let { error: thumbError } = await supabase.storage
+            // .from('thumbnails')
+            // .upload(thumbnailFileName, thumbnail)
+
+            // if (thumbError) throw thumbError
+
+            // // Get public URLs for files
+            // const { publicURL: songFileUrl } = supabase.storage
+            // .from('songs')
+            // .getPublicUrl(songFileName)
+
+            // const { publicURL: thumbnailUrl } = supabase.storage
+            // .from('thumbnails')
+            // .getPublicUrl(thumbnailFileName)
+
+            // Insert new song metadata in your database
+            const { data, error: dbError } = await supabase
+            .from('songs')
+            .insert([{
+                created_at: new Date().toISOString(),
+                artist_name: artistName,
+                // thumbnail_url: thumbnailUrl,
+                // song_url: songFileUrl,
+                song_name: songName,  
+                // duration,
+                thumbnail_url: "thumbnailUrl",
+                song_url: "songFileUrl",
+                duration: "duration",
+            }])
+
+            if (dbError) throw dbError
+
+            // Notify parent with new song from database
+            //onAddSong(data[0])
+            onClose()
+
+        } catch (error) {
+            alert('Error uploading song: ' + error.message)
+        }
       };
     
     if(!open){

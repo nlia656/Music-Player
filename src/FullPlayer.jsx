@@ -136,6 +136,8 @@ function FullPlayer() {
         <h1>{currentSong.title}</h1>
         <p>{currentSong.artist}</p>
 
+
+        {/* for soundboard could use web audio api */}
         <audio ref={songRef} onEnded={songEnded} key={currentSongIndex}>
           <source src={currentSong.songFileUrl} type="audio/mpeg" />
         </audio>

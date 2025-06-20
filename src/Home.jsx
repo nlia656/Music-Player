@@ -69,7 +69,7 @@ function Home() {
             <h1>Playlist Name</h1>
             <div>Play button</div>
           </div>
-          <button onClick={() => setIsOpen(true)}>Add song</button>
+          <button onClick={() => setIsOpen(true)} className="add-button">Add song</button>
           <UploadSong open={isOpen} onClose={() => setIsOpen(false)} onAddSong={addSong}>
           </UploadSong>
         </div>

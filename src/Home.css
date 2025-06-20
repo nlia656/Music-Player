@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: left;
     gap: 10rem;
-    margin: 3rem;;
+    margin: 3rem;
 }
 
 .thumbnail{
@@ -17,6 +17,18 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: baseline;
+}
+
+.add-button{
+    position: absolute;
+    right: 10rem;
+    top: 10rem;
+}
+
+.add-button:hover{
+    background-color: #eeeeee;
+    border-color: #dddddd;
+    scale: 105%;
 }
 
 .list-headers{
@@ -59,9 +71,8 @@
 .list-entry{
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
     width: 90%;
-    height: 4rem;
+    height: 4.5rem;
     margin-left: 6%;
     border-radius: 5px;
     color: white;
@@ -110,4 +121,12 @@
 
 .delete:hover{
     background-color: rgba(255,255,255,0.3);
+}
+
+.list-entry:nth-child(even){
+    background-color: #45525c;
+}
+
+.list-entry:nth-child(even):hover{
+    background-color: #505c67;
 }
