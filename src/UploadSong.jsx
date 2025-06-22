@@ -84,7 +84,7 @@ function UploadSong({onAddSong, open, onClose}) {
             if (dbError) throw dbError;
 
             // Notify parent with new song from database
-            onAddSong(data[0]);
+            //onAddSong(data[0]);
             onClose();
 
         } catch (error) {

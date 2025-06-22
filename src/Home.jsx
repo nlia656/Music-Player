@@ -28,7 +28,7 @@ function Home() {
     
     let { data: songs, error } = await supabase
       .from('songs')
-      .select('created_at, song_name, artist_name, duration');
+      .select('*');
     
     if (error) {
       console.error('Error fetching songs:', error.message);
@@ -98,6 +98,7 @@ function Home() {
                     thumbnailUrl: song.thumbnail_url,
                     songs: songs,//list of songs
                     index: index,
+                    id: song.id,
                   },
                 })}
                 onDelete={() => deleteSong(index)}
