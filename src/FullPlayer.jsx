@@ -13,12 +13,13 @@ function FullPlayer() {
   const [currentProgress, setCurrentProgress] = useState(0);
 
   const location = useLocation();
-  const { title, artist, date, duration, thumbnailUrl, songFileUrl, songs, index } = location.state || {};
+  const { title, artist, date, duration, thumbnailUrl, songFileUrl, songs, index, id } = location.state || {};
   const [currentSongIndex, setCurrentSongIndex] = useState(location.state.index);
-  const [currentSong, setCurrentSong] = useState(songs[currentSongIndex]);
+  const [currentSong, setCurrentSong] = useState(songs.find(song => song.id === id) || null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(currentSong);
     const song = songRef.current;
     
     if (song) {
@@ -132,14 +133,14 @@ function FullPlayer() {
             <FontAwesomeIcon icon={faBars} size="lg" />
           </div>
         </nav>
-        <img src={currentSong.thumbnailUrl} className="thumbnail" alt="Album cover" />
-        <h1>{currentSong.title}</h1>
-        <p>{currentSong.artist}</p>
+        <img src={currentSong.thumbnail_url} className="thumbnail" alt="Album cover" />
+        <h1>{currentSong.song_name}</h1>
+        <p>{currentSong.artist_name}</p>
 
 
         {/* for soundboard could use web audio api */}
         <audio ref={songRef} onEnded={songEnded} key={currentSongIndex}>
-          <source src={currentSong.songFileUrl} type="audio/mpeg" />
+          <source src={currentSong.song_url} type="audio/mpeg" />
         </audio>
 
         <input
