@@ -5,6 +5,6 @@ Upload mp3 files alongside a thumbnail and song name, into a playlist format.
 
 ## Future goals
 
-Integrate a database to store music. (DONE)
-Soundboard (IN PROGRESS)
-Grid based "composition" 
+ - Integrate a database to store music. (DONE)
+ - Soundboard (IN PROGRESS)
+ - Grid based "composition" 
