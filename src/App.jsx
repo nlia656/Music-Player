@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import FullPlayer from './FullPlayer'
-import Home from './Home'
+import Play from './components/Play'
+import Home from './components/Home'
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/player" element={<FullPlayer />} />
+        <Route path="/player" element={<Play />} />
       </Routes>
     </BrowserRouter>
   )

@@ -1,0 +1,13 @@
+.soundboard-button{
+    width: 300px;
+    height: 150px;
+    background-color: #aab99c;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.sound-icon{
+    width: 70px;
+}
