@@ -3,18 +3,28 @@ import React, { useState, useRef, useEffect } from 'react';
 
 function SoundboardButton( { icon, sound, keybind, soundName } ) {
   const soundRef = useRef(null);
+  const [isPressed, setIsPressed] = useState(false);
   
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key == keybind) {
+        setIsPressed(true);
         playSound();
       }
     };
 
+    const handleKeyUp = (event) => {
+      if (event.key.toLowerCase() === keybind.toLowerCase()) {
+        setIsPressed(false);
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
     };
   }, [keybind]);
 
@@ -26,7 +36,7 @@ function SoundboardButton( { icon, sound, keybind, soundName } ) {
 
 
   return (
-    <div className="soundboard-button">
+    <div className={`soundboard-button ${isPressed ? 'pressed' : ''}`}>
         <audio ref={soundRef}>
           <source src={sound} type="audio/mpeg" />
         </audio>
