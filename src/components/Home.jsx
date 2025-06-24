@@ -35,8 +35,8 @@ function Home() {
       return;
     }
     setSongs(songs);
-    
   }
+
   useEffect(() => {
     getSongs();
     console.log(songs);

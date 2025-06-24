@@ -12,8 +12,8 @@
 
 .music-player{
   background-color: #aab99c;
-  width: 35%;
-  height: 80%;
+  width: 30vw;
+  height: 70vh;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -134,4 +134,17 @@ nav .circle-button:hover{
   justify-content: space-between;
   padding-left: 15%;
   padding-right: 15%;
+}
+
+.soundboard{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.playbox{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
