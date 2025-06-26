@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faAngleLeft, faBars, faBackwardStep, faForwardStep } from '@fortawesome/free-solid-svg-icons';
-import './App.css';
+import '../App.css';
 import { useLocation, useNavigate } from "react-router-dom";
 
 function FullPlayer() {
@@ -121,6 +121,19 @@ function FullPlayer() {
       setIsPlaying(true);  // Set the playing state
     }
   }, [currentSong]);
+
+  useEffect(() => {
+      const handleKeyDown = (event) => {
+        if (event.key == " ") {
+          pressPlay();
+        }
+      };
+  
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [isPlaying]);
 
   return (
     <div className="container">

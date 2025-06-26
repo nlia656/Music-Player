@@ -1,4 +1,4 @@
-import './Home.css'
+import '../styles/Home.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 

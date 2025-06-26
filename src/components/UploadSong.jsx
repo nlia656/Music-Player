@@ -1,9 +1,9 @@
 import { React, useState, useEffect} from 'react'
 import ReactDom from 'react-dom'
-import "./modal.css"
+import "../styles/modal.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { supabase } from './supabaseClient'
+import { supabase } from '../supabaseClient'
 
 function UploadSong({onAddSong, open, onClose}) {
     const [thumbnail, setThumbnail] = useState(null);

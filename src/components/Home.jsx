@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import './Home.css'
-import sunsetImage from './resources/sunset.jpg';
+import '../styles/Home.css'
+import sunsetImage from '../resources/sunset.jpg';
 import ListEntry from './ListEntry';
 import { useNavigate } from "react-router-dom";
 import UploadSong from './UploadSong';
-import { supabase } from './supabaseClient'
+import { supabase } from '../supabaseClient'
 
 
 
@@ -35,8 +35,8 @@ function Home() {
       return;
     }
     setSongs(songs);
-    
   }
+
   useEffect(() => {
     getSongs();
     console.log(songs);
