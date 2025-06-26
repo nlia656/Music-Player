@@ -9,6 +9,11 @@
     justify-content: center;
 }
 
+.soundboard-button:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 .sound-icon{
     width: 70px;
     align-self: center;

@@ -36,14 +36,14 @@ function SoundboardButton( { icon, sound, keybind, soundName } ) {
 
 
   return (
-    <div className={`soundboard-button ${isPressed ? 'pressed' : ''}`}>
+    <div onClick={playSound} className={`soundboard-button ${isPressed ? 'pressed' : ''}`}>
         <audio ref={soundRef}>
           <source src={sound} type="audio/mpeg" />
         </audio>
         <img className="sound-icon" src={icon} alt="Soundboard Button"/>
         <div className="button-info">
           <div>{soundName}</div>
-          <div onClick={playSound}>[{keybind}]</div>
+          <div>[{keybind}]</div>
         </div>
     </div>
   )
