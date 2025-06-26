@@ -122,6 +122,19 @@ function FullPlayer() {
     }
   }, [currentSong]);
 
+  useEffect(() => {
+      const handleKeyDown = (event) => {
+        if (event.key == " ") {
+          pressPlay();
+        }
+      };
+  
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [isPlaying]);
+
   return (
     <div className="container">
       <div className="music-player">

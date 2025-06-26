@@ -1,0 +1,8 @@
+.playbox{
+  display: flex;
+  gap: 10%;
+  align-items: start;
+  justify-content: center;
+  margin-top: 100px;
+  height: 90vh;
+}
