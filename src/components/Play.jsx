@@ -1,6 +1,7 @@
 import '../styles/Play.css'
 import FullPlayer from './FullPlayer'
 import Soundboard from './Soundboard'
+import BPMFinder from './BPMFinder'
 
 
 function Play() {
@@ -8,7 +9,10 @@ function Play() {
   return (
     <div className="playbox">
       <FullPlayer className="full-player"/>
-      <Soundboard className="soundboard"/>
+      <div>
+        <Soundboard className="soundboard"/>
+        <BPMFinder/>
+      </div>
     </div>
   )
 }
