@@ -2,6 +2,7 @@ import '../styles/Play.css'
 import FullPlayer from './FullPlayer'
 import Soundboard from './Soundboard'
 import BPMFinder from './BPMFinder'
+import Metronome from './Metronome'
 
 
 function Play() {
@@ -12,6 +13,7 @@ function Play() {
       <div>
         <Soundboard className="soundboard"/>
         <BPMFinder/>
+        <Metronome/>
       </div>
     </div>
   )
