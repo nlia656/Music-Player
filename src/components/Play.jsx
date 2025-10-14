@@ -1,14 +1,17 @@
 import '../styles/Play.css'
 import FullPlayer from './FullPlayer'
 import Soundboard from './Soundboard'
-
+import RhythmGrid from './RhythmGrid'
 
 function Play() {
 
   return (
     <div className="playbox">
       <FullPlayer className="full-player"/>
-      <Soundboard className="soundboard"/>
+      <div className='button-column'>
+        <Soundboard className="soundboard"/>
+        <RhythmGrid />
+      </div>
     </div>
   )
 }
