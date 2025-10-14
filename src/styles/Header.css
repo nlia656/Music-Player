@@ -1,0 +1,18 @@
+.header{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    gap: 10rem;
+    margin: 3rem;
+    grid-template-columns: 5% 50% auto;
+}
+
+.add-button{
+    width: 8rem;
+}
+
+.add-button:hover{
+    background-color: #eeeeee;
+    border-color: #dddddd;
+    scale: 105%;
+}

@@ -1,11 +1,3 @@
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    gap: 10rem;
-    margin: 3rem;
-}
-
 .thumbnail{
     width: 15rem;
     height: 15rem;
@@ -17,18 +9,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: baseline;
-}
-
-.add-button{
-    position: absolute;
-    right: 10rem;
-    top: 10rem;
-}
-
-.add-button:hover{
-    background-color: #eeeeee;
-    border-color: #dddddd;
-    scale: 105%;
 }
 
 .list-headers{
@@ -129,4 +109,10 @@
 
 .list-entry:nth-child(even):hover{
     background-color: #505c67;
+}
+
+.home-container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
