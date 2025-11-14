@@ -12,3 +12,8 @@
   flex-direction: column;
   gap: 100px;
 }
+
+.rhythm-grid{
+  display: flex;
+  flex-direction: column;
+}
