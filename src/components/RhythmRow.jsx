@@ -4,10 +4,10 @@ import {useState, useRef, useEffect} from 'react';
 
 function RhythmRow({icon, sound, play}){
     const soundRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(false);
     const [buttons, setButtons] = useState(
         Array.from({ length: 8 }, () => ({ isActive: false }))
     );
+    const [currentIndex, setCurrentIndex] = useState(null);
 
     const bpm = 240;
     const delay = 60000/bpm;
@@ -24,19 +24,24 @@ function RhythmRow({icon, sound, play}){
         async function playRow(){
             while (play && !cancelled){
                 for(let i=0; i<buttons.length;i++){
+                    setCurrentIndex(i);
                     if(buttons[i].isActive){
                         playSound();
                     }
                     await sleep(delay);
                 }
+                setCurrentIndex(null);
             }
         };
 
         if (play){
             playRow();
+        } else {
+            setCurrentIndex(null);
         }
         return () => {
             cancelled = true;
+            setCurrentIndex(null);
         }
     }, [play]);
 
@@ -61,6 +66,7 @@ function RhythmRow({icon, sound, play}){
                     <GridButton
                     key={i}
                     isActive={btn.isActive}
+                    isPlaying={currentIndex===i}
                     onToggle={() => toggleButton(i)}
                     />
                 ))}
