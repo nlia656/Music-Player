@@ -4,6 +4,7 @@ import {useState, useRef, useEffect} from 'react';
 
 function RhythmRow({icon, sound, play}){
     const soundRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
     const [buttons, setButtons] = useState(
         Array.from({ length: 8 }, () => ({ isActive: false }))
     );
@@ -19,17 +20,27 @@ function RhythmRow({icon, sound, play}){
     };
 
     useEffect(()=>{
-        playRow();
+        let cancelled = false;
+        async function playRow(){
+            while (play && !cancelled){
+                for(let i=0; i<buttons.length;i++){
+                    if(buttons[i].isActive){
+                        playSound();
+                    }
+                    await sleep(delay);
+                }
+            }
+        };
+
+        if (play){
+            playRow();
+        }
+        return () => {
+            cancelled = true;
+        }
     }, [play]);
 
-    async function playRow(){
-        for(let i=0; i<buttons.length;i++){
-            if(buttons[i].isActive){
-                playSound();
-            }
-            await sleep(delay);
-        }
-    };
+    
 
     const playSound = () => {
         const sound = soundRef.current;
@@ -45,7 +56,7 @@ function RhythmRow({icon, sound, play}){
                 <audio ref={soundRef}>
                     <source src={sound} type="audio/mpeg" />
                 </audio>
-                <img className="grid-icon" src={icon} alt="Grid Icon" onClick={playRow}/>
+                <img className="grid-icon" src={icon} alt="Grid Icon"/>
                 {buttons.map((btn, i) => (
                     <GridButton
                     key={i}

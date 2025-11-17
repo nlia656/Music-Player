@@ -9,11 +9,12 @@ function RhythmGrid({kickIcon, clHiHatIcon, opHiHatIcon, snareIcon}) {
     const snareSound = 'https://rvaugnusjthsxxhohiuy.supabase.co/storage/v1/object/public/soundboard//snare.mp3';
 
     const [play, setPlay] = useState(false);
-
+    console.log(play);
     return(
     <div className="rhythm-grid">
-       <button onClick={() => setPlay(play ? false : true)}>Play</button>
-
+        <div>
+            {play ? <button onClick={() => setPlay(false)}>Stop</button> : <button onClick={() => setPlay(true)}>Play</button>}
+        </div>
        <RhythmRow icon={kickIcon} sound={kickSound} play={play}></RhythmRow>
        <RhythmRow icon={clHiHatIcon} sound={clHiHatSound} play={play}></RhythmRow>
        <RhythmRow icon={opHiHatIcon} sound={opHiHatSound} play={play}></RhythmRow>
